@@ -1,0 +1,70 @@
+springboot
+	微服务
+	优点  ○ 创建独立Spring应用
+		  ○ 内嵌web服务器
+		  ○ 自动starter依赖，简化构建配置
+		  ○ 自动配置Spring以及第三方功能
+		  ○ 提供生产级别的监控、健康检查及外部化配置
+		  ○ 无代码生成、无需编写XML
+	
+	依赖
+		 <parent>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-parent</artifactId>
+			<version>2.3.4.RELEASE</version>
+		</parent>
+
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+			</dependency>
+		</dependencies>
+		
+	主程序
+		/**
+		 * 主程序类
+		 * @SpringBootApplication：这是一个SpringBoot应用
+		 */
+		@SpringBootApplication
+		public class MainApplication {
+
+			public static void main(String[] args) {
+				SpringApplication.run(MainApplication.class,args);
+			}
+		}
+		
+	修改配置
+		创建application.properties
+		
+	可以修改版本号
+	例：<properties>
+			<mysql.version>5.1.43</mysql.version>
+		</properties>
+		
+	SpringBoot所有的自动配置功能都在 spring-boot-autoconfigure 包里面
+	  
+	配置绑定
+		读取到application.properties文件中的内容，并且把它封装到JavaBean中
+		@EnableConfigurationProperties + @ConfigurationProperties或者
+		@Component + @ConfigurationProperties
+	
+	自动配置
+		@SpringBootApplication=@SpringBootConfiguration
+							   @EnableAutoConfiguration
+							   @ComponentScan(excludeFilters = { @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
+										@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
+		
+		@SpringBootConfiguration
+			代表当前是一个配置类
+		@ComponentScan
+			指定扫描哪些，Spring注解
+		@EnableAutoConfiguration=
+			@AutoConfigurationPackage	//将MainApplication所在包下所有组件导入进来
+			@Import({AutoConfigurationImportSelector.class})	@Import引入ImportSelector的实现类
+				spring-boot一启动就要给容器中加载的所有配置类
+				spring-boot-autoconfigure-2.3.4.RELEASE.jar/META-INF/spring.factories中共127个默认全部加载，之后按照条件装配规则（@Conditional），最终会按需配置。
+	
+	application.properties中配置debug=true可以开启自动配置报告。Negative（不生效）\Positive（生效）
+	参照文档修改配置项
+		https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties  
