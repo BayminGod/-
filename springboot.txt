@@ -101,4 +101,34 @@ springboot
 	
 	application.properties中配置debug=true可以开启自动配置报告。Negative（不生效）\Positive（生效）
 	参照文档修改配置项
-		https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties  
+		https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties
+	
+	配置提示
+		自定义的类和配置文件绑定一般没有提示。
+		引入依赖
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+		添加配置
+		<configuration>
+			<excludes>
+				<exclude>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-configuration-processor</artifactId>
+				</exclude>
+			</excludes>
+		</configuration>
+		
+	web开发
+		1、静态资源
+			目录：只要静态资源放在类路径下： called /static (or /public or /resources or /META-INF/resources
+			访问：根路径/资源名
+			欢迎页：静态资源路径下  index.html 或者
+					controller能处理/index
+					
+			resources:
+				add-mappings: false   禁用所有静态资源规则
+				
+					
