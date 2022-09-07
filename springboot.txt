@@ -130,5 +130,35 @@ springboot
 					
 			resources:
 				add-mappings: false   禁用所有静态资源规则
+		2、请求参数
+			开启HiddenHttpMethodFilter，使用rest风格
+			spring:
+			  mvc:
+				hiddenmethod:
+				  filter:
+					enabled: true   #开启页面表单的Rest功能
+			注解
+			@PathVariable	rest风格参数
+			@RequestHeader	请求头参数
+			@ModelAttribute
+			@RequestParam	请求参数
+			@MatrixVariable	矩阵变量参数	
+			@CookieValue	获取cookie
+			@RequestBody	获取请求体
+			@RequestAttribute	request域参数
+			
+			矩阵变量
+				语法： 请求路径：/cars/sell;low=34;brand=byd,audi,yd
+				springboot需要手动在配置类中开启功能
+			@Bean
+			public WebMvcConfigurer webMvcConfigurer(){
+				return new WebMvcConfigurer() {
+					@Override
+					public void configurePathMatch(PathMatchConfigurer configurer) {
+						UrlPathHelper urlPathHelper = new UrlPathHelper();
+						urlPathHelper.setRemoveSemicolonContent(false);
+						configurer.setUrlPathHelper(urlPathHelper);
+					}
+				};
+			}
 				
-					
