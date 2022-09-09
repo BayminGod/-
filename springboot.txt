@@ -140,7 +140,6 @@ springboot
 			注解
 			@PathVariable	rest风格参数
 			@RequestHeader	请求头参数
-			@ModelAttribute
 			@RequestParam	请求参数
 			@MatrixVariable	矩阵变量参数	
 			@CookieValue	获取cookie
@@ -161,4 +160,26 @@ springboot
 					}
 				};
 			}
-				
+			
+			自定义Converter		在webMvcConfigurer中配置
+			例子：@Override
+				public void addFormatters(FormatterRegistry registry) {
+					//String转自定义类Pet
+					registry.addConverter(new Converter<String, Pet>() {
+						@Override
+						public Pet convert(String source) {
+							if (!StringUtils.isEmpty(source)){
+								Pet pet = new Pet();
+								String[] split = source.split(",");
+								pet.setName(split[0]);
+								pet.setAge(Integer.parseInt(split[1]));
+								return pet;
+							}
+							return null;
+						}
+					});
+				}
+		3、数据响应
+			响应JSON
+				jackson.jar+@ResponseBody
+				源码使用消息转换器处理写出操作
