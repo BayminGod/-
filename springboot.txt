@@ -185,3 +185,4 @@ springboot
 				源码使用消息转换器处理写出操作
 		4、错误处理
 			自定义：设置error/404.html   error/5xx.html
+			如果没有任何人能处理最终底层就会发送 /error 请求
