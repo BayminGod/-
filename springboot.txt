@@ -266,3 +266,19 @@ springboot
 					   
 			redis使用
 				通过StringRedisTemplate进行增删改查
+		6、指标监控
+			依赖
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
+			</dependency>
+			配置参数信息
+			management:
+			  endpoints:
+				enabled-by-default: true
+				web:
+				  exposure:
+					include: '*'
+			  endpoint:
+				health:
+				  show-details: always
